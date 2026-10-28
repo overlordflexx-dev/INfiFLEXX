@@ -1,0 +1,15 @@
+{
+  "name": "Greenapp Messenger",
+  "short_name": "Greenapp",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#efeae2",
+  "theme_color": "#00a884",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/color/512/whatsapp.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
