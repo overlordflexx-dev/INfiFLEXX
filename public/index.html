@@ -12,10 +12,15 @@
         .theme-spider { background-color: #dc2626; }
         .theme-starwars { background-color: #1e293b; }
         .theme-barbie { background-color: #db2777; }
-        .app-bg { background-color: #efeae2; }
+        
+        /* Face Colors */
+        .face-cream { background-color: #efeae2; color: #1e293b; }
+        .face-dark { background-color: #111827; color: #f3f4f6; }
+        .face-grey { background-color: #f1f5f9; color: #0f172a; }
+        .face-white { background-color: #ffffff; color: #1e293b; }
     </style>
 </head>
-<body id="appBody" class="app-bg text-slate-800 min-h-screen flex flex-col font-sans transition-colors duration-300">
+<body id="appBody" class="face-cream min-h-screen flex flex-col font-sans transition-colors duration-300">
 
     <!-- Top Header Bar -->
     <header id="headerBg" class="theme-green text-white px-4 py-3 flex justify-between items-center shadow-md sticky top-0 z-50 transition-colors duration-300">
@@ -36,13 +41,13 @@
 
         <!-- VIEW 1: DASHBOARD / HOME -->
         <div id="screen-menu" class="space-y-4">
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center space-y-3">
+            <div id="cardBox1" class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center space-y-3 transition-colors">
                 <div id="heroBadge" class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl font-black shadow-inner">🟢</div>
-                <h2 class="text-xl font-black text-slate-900">Welcome to Greenapp</h2>
-                <p class="text-xs text-slate-500 leading-relaxed">Your secure space for offline-ready chats, local connections, and more.</p>
+                <h2 id="welcomeText" class="text-xl font-black text-slate-900">Welcome to Greenapp</h2>
+                <p id="welcomeSub" class="text-xs text-slate-500 leading-relaxed">Your secure space for offline-ready chats, local connections, and more.</p>
             </div>
 
-            <div class="bg-white p-4 rounded-3xl shadow-sm border border-slate-200">
+            <div id="cardBox2" class="bg-white p-4 rounded-3xl shadow-sm border border-slate-200 transition-colors">
                 <h3 class="text-xs uppercase tracking-wider font-bold text-slate-400 mb-3 px-1">Quick Overview</h3>
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
@@ -120,27 +125,38 @@
 
     <!-- SETTINGS MODAL -->
     <div id="settingsModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-5 animate-in fade-in duration-200">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 animate-in fade-in duration-200 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                 <h3 class="font-black text-base text-slate-900">⚙️ Settings & Support</h3>
                 <button onclick="toggleSettings(false)" class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-600 hover:bg-slate-200">✕</button>
             </div>
 
             <!-- Support Details -->
-            <div class="space-y-2 bg-slate-50 p-3.5 rounded-2xl border border-slate-100 text-xs text-slate-600">
+            <div class="space-y-1 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-xs text-slate-600">
                 <p class="font-bold text-slate-800 mb-1">📞 Support & Contact</p>
                 <p><b>Phone:</b> +254 700 000 000</p>
                 <p><b>Email:</b> support@greenapp.live</p>
             </div>
 
-            <!-- Theme Picker -->
-            <div class="space-y-2">
-                <label class="font-bold text-xs text-slate-700 block">🎨 Choose Theme</label>
+            <!-- Face Color Picker -->
+            <div class="space-y-1.5">
+                <label class="font-bold text-xs text-slate-700 block">🎨 App Face Color</label>
                 <div class="grid grid-cols-2 gap-2">
-                    <button onclick="setTheme('green')" class="p-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold shadow-sm hover:opacity-90">Classic Green</button>
-                    <button onclick="setTheme('spider')" class="p-2.5 rounded-xl bg-red-600 text-white text-xs font-bold shadow-sm hover:opacity-90">Spider-Man</button>
-                    <button onclick="setTheme('starwars')" class="p-2.5 rounded-xl bg-slate-800 text-white text-xs font-bold shadow-sm hover:opacity-90">Star Wars</button>
-                    <button onclick="setTheme('barbie')" class="p-2.5 rounded-xl bg-pink-600 text-white text-xs font-bold shadow-sm hover:opacity-90">Barbie</button>
+                    <button onclick="setFaceColor('cream')" class="p-2 rounded-xl bg-[#efeae2] text-slate-800 text-xs font-bold border border-slate-300 shadow-sm">Warm Cream</button>
+                    <button onclick="setFaceColor('dark')" class="p-2 rounded-xl bg-[#111827] text-white text-xs font-bold shadow-sm">Dark AMOLED</button>
+                    <button onclick="setFaceColor('grey')" class="p-2 rounded-xl bg-[#f1f5f9] text-slate-800 text-xs font-bold border border-slate-200 shadow-sm">Cool Grey</button>
+                    <button onclick="setFaceColor('white')" class="p-2 rounded-xl bg-white text-slate-800 text-xs font-bold border border-slate-200 shadow-sm">Clean White</button>
+                </div>
+            </div>
+
+            <!-- Theme Picker (Separate) -->
+            <div class="space-y-1.5">
+                <label class="font-bold text-xs text-slate-700 block">✨ Header & Accent Themes</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="setTheme('green')" class="p-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold shadow-sm">Classic Green</button>
+                    <button onclick="setTheme('spider')" class="p-2.5 rounded-xl bg-red-600 text-white text-xs font-bold shadow-sm">Spider-Man</button>
+                    <button onclick="setTheme('starwars')" class="p-2.5 rounded-xl bg-slate-800 text-white text-xs font-bold shadow-sm">Star Wars</button>
+                    <button onclick="setTheme('barbie')" class="p-2.5 rounded-xl bg-pink-600 text-white text-xs font-bold shadow-sm">Barbie</button>
                 </div>
             </div>
 
@@ -153,7 +169,9 @@
 
     <script>
         let currentTheme = localStorage.getItem('greenapp_theme') || 'green';
+        let currentFace = localStorage.getItem('greenapp_face') || 'cream';
         setTheme(currentTheme, false);
+        setFaceColor(currentFace, false);
 
         function setTheme(theme, save = true) {
             currentTheme = theme;
@@ -161,7 +179,6 @@
 
             const headerBg = document.getElementById('headerBg');
             const sendBtn = document.getElementById('sendBtn');
-            const heroBadge = document.getElementById('heroBadge');
             const themeColorMeta = document.getElementById('themeColorMeta');
 
             headerBg.className = "text-white px-4 py-3 flex justify-between items-center shadow-md sticky top-0 z-50 transition-colors duration-350 " + 
@@ -170,12 +187,29 @@
             sendBtn.className = "text-white w-10 h-10 rounded-full flex items-center justify-center shadow hover:opacity-90 transition font-bold text-lg " + 
                 (theme === 'spider' ? 'theme-spider' : theme === 'starwars' ? 'theme-starwars' : theme === 'barbie' ? 'theme-barbie' : 'theme-green');
 
-            if(heroBadge) {
-                heroBadge.className = "w-16 h-16 rounded-full flex items-center justify-center mx-auto text-2xl font-black shadow-inner " +
-                    (theme === 'spider' ? 'bg-red-100 text-red-600' : theme === 'starwars' ? 'bg-slate-200 text-slate-800' : theme === 'barbie' ? 'bg-pink-100 text-pink-600' : 'bg-emerald-100 text-emerald-600');
-            }
-
             themeColorMeta.setAttribute('content', theme === 'spider' ? '#dc2626' : theme === 'starwars' ? '#1e293b' : theme === 'barbie' ? '#db2777' : '#00a884');
+            toggleSettings(false);
+        }
+
+        function setFaceColor(face, save = true) {
+            currentFace = face;
+            if(save) localStorage.setItem('greenapp_face', face);
+
+            const body = document.getElementById('appBody');
+            body.className = "min-h-screen flex flex-col font-sans transition-colors duration-300 " + 
+                (face === 'dark' ? 'face-dark' : face === 'grey' ? 'face-grey' : face === 'white' ? 'face-white' : 'face-cream');
+
+            const cardBox1 = document.getElementById('cardBox1');
+            const cardBox2 = document.getElementById('cardBox2');
+            if(cardBox1 && cardBox2) {
+                if(face === 'dark') {
+                    cardBox1.className = "bg-slate-800 text-slate-100 p-6 rounded-3xl shadow-sm border border-slate-700 text-center space-y-3 transition-colors";
+                    cardBox2.className = "bg-slate-800 text-slate-100 p-4 rounded-3xl shadow-sm border border-slate-700 transition-colors";
+                } else {
+                    cardBox1.className = "bg-white p-6 rounded-3xl shadow-sm border border-slate-200 text-center space-y-3 transition-colors";
+                    cardBox2.className = "bg-white p-4 rounded-3xl shadow-sm border border-slate-200 transition-colors";
+                }
+            }
             toggleSettings(false);
         }
 
@@ -231,7 +265,7 @@
         function renderMessages() {
             chatContainer.innerHTML = `
                 <div class="flex justify-start">
-                    <div class="bg-white p-3 max-w-[80%] rounded-2xl shadow-sm text-sm border border-slate-100">
+                    <div class="bg-white p-3 max-w-[80%] rounded-2xl shadow-sm text-sm border border-slate-100 text-slate-800">
                         <p class="font-bold text-xs text-emerald-700 mb-0.5">Greenapp System</p>
                         <p>Welcome! Offline messages queue locally and auto-sync when online.</p>
                         <span class="text-[9px] text-slate-400 block text-right mt-1">Just now</span>
@@ -241,7 +275,7 @@
             messages.forEach(msg => {
                 chatContainer.innerHTML += `
                     <div class="flex justify-end">
-                        <div class="bg-[#d9fdd3] p-3 max-w-[80%] rounded-2xl shadow-sm text-sm">
+                        <div class="bg-[#d9fdd3] text-slate-900 p-3 max-w-[80%] rounded-2xl shadow-sm text-sm">
                             <p>${msg.text}</p>
                             <div class="flex justify-end items-center gap-1 mt-1">
                                 <span class="text-[9px] text-slate-500">${msg.time}</span>
