@@ -21,15 +21,57 @@
 
         /* 3D Text Effect */
         .text-3d {
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.2), 4px 4px 0px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.3), 4px 4px 0px rgba(0,0,0,0.15);
+        }
+
+        /* Animated Glowing Gradient Background */
+        body.neon-glow-bg {
+            background-color: #000000;
+            color: #f3f4f6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body.neon-glow-bg::before,
+        body.neon-glow-bg::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.45;
+            animation: pulseGlow 8s ease-in-out infinite alternate;
+        }
+
+        /* Top-Left / Right Red-Pink Glow */
+        body.neon-glow-bg::before {
+            top: -50px;
+            left: -50px;
+            background: linear-gradient(135deg, #dc2626, #db2777);
+        }
+
+        /* Bottom-Right Opposite Glow */
+        body.neon-glow-bg::after {
+            bottom: 0px;
+            right: -50px;
+            background: linear-gradient(135deg, #db2777, #dc2626);
+            animation-delay: 4s;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.35; }
+            50% { transform: scale(1.2); opacity: 0.55; }
+            100% { transform: scale(1); opacity: 0.35; }
         }
     </style>
 </head>
-<body id="appBody" class="face-cream min-h-screen flex flex-col font-sans transition-colors duration-300">
+<body id="appBody" class="neon-glow-bg min-h-screen flex flex-col font-sans transition-colors duration-300">
 
     <!-- Floating Rounded Top Header -->
     <header class="p-3 sticky top-0 z-50">
-        <div id="headerBg" class="theme-green text-white px-4 py-3 flex justify-between items-center shadow-xl rounded-2xl transition-colors duration-300">
+        <div id="headerBg" class="theme-green text-white px-4 py-3 flex justify-between items-center shadow-2xl rounded-2xl transition-colors duration-300">
             <div class="flex items-center space-x-3">
                 <!-- Back Button -->
                 <button onclick="goBack()" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm hover:bg-white/30 transition">←</button>
@@ -64,19 +106,19 @@
         <!-- VIEW 2: FIND A DATE -->
         <div id="screen-dating" class="hidden space-y-4">
             <div class="flex justify-between items-center px-1">
-                <h3 class="text-xs uppercase tracking-wider font-bold text-slate-500">Local Matches Nearby</h3>
-                <span class="text-xs text-pink-600 font-medium">Active now</span>
+                <h3 class="text-xs uppercase tracking-wider font-bold text-pink-400">Local Matches Nearby</h3>
+                <span class="text-xs text-pink-500 font-medium">Active now</span>
             </div>
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="h-56 bg-gradient-to-tr from-pink-400 to-rose-500 flex items-end p-4 text-white">
+            <div class="bg-slate-900/80 backdrop-blur-md rounded-3xl shadow-lg border border-slate-800 overflow-hidden">
+                <div class="h-56 bg-gradient-to-tr from-pink-600 to-rose-600 flex items-end p-4 text-white">
                     <div>
                         <h4 class="text-lg font-bold">Brenda, 22</h4>
                         <p class="text-xs text-pink-100">2 km away • Coffee & Tech lover</p>
                     </div>
                 </div>
                 <div class="p-4 flex gap-2">
-                    <button onclick="alert('Passed!')" class="w-1/2 border border-slate-300 text-slate-600 py-3 rounded-2xl text-xs font-bold hover:bg-slate-50">✕ Pass</button>
-                    <button onclick="alert('Matched! Opening secure chat room.')" class="w-1/2 bg-pink-500 text-white py-3 rounded-2xl text-xs font-bold hover:bg-pink-600 shadow">💖 Like & Chat</button>
+                    <button onclick="alert('Passed!')" class="w-1/2 border border-slate-700 text-slate-300 py-3 rounded-2xl text-xs font-bold hover:bg-slate-800">✕ Pass</button>
+                    <button onclick="alert('Matched! Opening secure chat room.')" class="w-1/2 bg-pink-600 text-white py-3 rounded-2xl text-xs font-bold hover:bg-pink-700 shadow">💖 Like & Chat</button>
                 </div>
             </div>
         </div>
@@ -91,53 +133,53 @@
     </main>
 
     <!-- Message Input Bar (Only visible in Chat View) -->
-    <div id="chatInputBar" class="hidden fixed bottom-16 left-0 right-0 bg-[#f0f2f5] p-3 border-t border-slate-300 max-w-md mx-auto flex items-center gap-2 z-40">
-        <input type="text" id="messageInput" placeholder="Type a message (works offline)..." class="flex-1 bg-white border border-slate-300 rounded-full py-2.5 px-4 text-sm focus:outline-none focus:border-emerald-600">
+    <div id="chatInputBar" class="hidden fixed bottom-16 left-0 right-0 bg-slate-900/90 backdrop-blur-md p-3 border-t border-slate-800 max-w-md mx-auto flex items-center gap-2 z-40">
+        <input type="text" id="messageInput" placeholder="Type a message (works offline)..." class="flex-1 bg-slate-800 text-white placeholder-slate-400 border border-slate-700 rounded-full py-2.5 px-4 text-sm focus:outline-none focus:border-emerald-500">
         <button id="sendBtn" onclick="sendMessage()" class="theme-green text-white w-10 h-10 rounded-full flex items-center justify-center shadow hover:opacity-90 transition font-bold text-lg">➤</button>
     </div>
 
     <!-- BOTTOM MARK-BOOKS NAVIGATION DOCK -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-200 py-2 px-3 max-w-md mx-auto flex justify-around items-center z-50 shadow-lg">
-        <button onclick="showScreen('menu')" class="flex flex-col items-center text-slate-600 hover:text-emerald-600 transition">
+    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-md border-t border-slate-800 py-2 px-3 max-w-md mx-auto flex justify-around items-center z-50 shadow-2xl">
+        <button onclick="showScreen('menu')" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition">
             <span class="text-xl">🏠</span>
             <span class="text-[10px] font-bold mt-0.5">Home</span>
         </button>
-        <button onclick="showScreen('dating')" class="flex flex-col items-center text-slate-600 hover:text-pink-600 transition">
+        <button onclick="showScreen('dating')" class="flex flex-col items-center text-slate-400 hover:text-pink-500 transition">
             <span class="text-xl">💖</span>
             <span class="text-[10px] font-bold mt-0.5">Find Date</span>
         </button>
-        <button onclick="showScreen('chat')" class="flex flex-col items-center text-slate-600 hover:text-emerald-600 transition">
+        <button onclick="showScreen('chat')" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition">
             <span class="text-xl">💬</span>
             <span class="text-[10px] font-bold mt-0.5">Chats</span>
         </button>
-        <button onclick="syncContacts()" class="flex flex-col items-center text-slate-600 hover:text-blue-600 transition">
+        <button onclick="syncContacts()" class="flex flex-col items-center text-slate-400 hover:text-blue-400 transition">
             <span class="text-xl">📇</span>
             <span class="text-[10px] font-bold mt-0.5">Contacts</span>
         </button>
-        <button onclick="inviteFriends()" class="flex flex-col items-center text-slate-600 hover:text-amber-600 transition">
+        <button onclick="inviteFriends()" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition">
             <span class="text-xl">🔗</span>
             <span class="text-[10px] font-bold mt-0.5">Invite</span>
         </button>
     </nav>
 
     <!-- SETTINGS MODAL -->
-    <div id="settingsModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 animate-in fade-in duration-200 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <h3 class="font-black text-base text-slate-900">⚙️ Settings & Support</h3>
-                <button onclick="toggleSettings(false)" class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-600 hover:bg-slate-200">✕</button>
+    <div id="settingsModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 text-slate-100 border border-slate-800 w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 animate-in fade-in duration-200 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="font-black text-base text-slate-100">⚙️ Settings & Support</h3>
+                <button onclick="toggleSettings(false)" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center font-bold text-slate-300 hover:bg-slate-700">✕</button>
             </div>
 
             <!-- Support Details -->
-            <div class="space-y-1 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-xs text-slate-600">
-                <p class="font-bold text-slate-800 mb-1">📞 Support & Contact</p>
+            <div class="space-y-1 bg-slate-800/60 p-3 rounded-2xl border border-slate-700/50 text-xs text-slate-300">
+                <p class="font-bold text-slate-200 mb-1">📞 Support & Contact</p>
                 <p><b>Phone:</b> +254 700 000 000</p>
                 <p><b>Email:</b> support@eastwest.live</p>
             </div>
 
             <!-- Face Color Picker -->
             <div class="space-y-1.5">
-                <label class="font-bold text-xs text-slate-700 block">🎨 App Face Color</label>
+                <label class="font-bold text-xs text-slate-300 block">🎨 App Face Color</label>
                 <div class="grid grid-cols-2 gap-2">
                     <button onclick="setFaceColor('cream')" class="p-2 rounded-xl bg-[#efeae2] text-slate-800 text-xs font-bold border border-slate-300 shadow-sm">Warm Cream</button>
                     <button onclick="setFaceColor('dark')" class="p-2 rounded-xl bg-[#111827] text-white text-xs font-bold shadow-sm">Dark AMOLED</button>
@@ -148,7 +190,7 @@
 
             <!-- Theme Picker (Separate) -->
             <div class="space-y-1.5">
-                <label class="font-bold text-xs text-slate-700 block">✨ Header & Accent Themes</label>
+                <label class="font-bold text-xs text-slate-300 block">✨ Header & Accent Themes</label>
                 <div class="grid grid-cols-2 gap-2">
                     <button onclick="setTheme('green')" class="p-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold shadow-sm">Classic Green</button>
                     <button onclick="setTheme('spider')" class="p-2.5 rounded-xl bg-red-600 text-white text-xs font-bold shadow-sm">Spider-Man</button>
@@ -158,17 +200,16 @@
             </div>
 
             <!-- Project Tag -->
-            <div class="pt-2 border-t border-slate-100 text-center">
-                <span class="text-[10px] bg-slate-100 text-slate-500 font-bold px-3 py-1 rounded-full">🚀 Ongoing Project: East West v2.0</span>
+            <div class="pt-2 border-t border-slate-800 text-center">
+                <span class="text-[10px] bg-slate-800 text-slate-400 font-bold px-3 py-1 rounded-full">🚀 Ongoing Project: East West v2.0</span>
             </div>
         </div>
     </div>
 
     <script>
         let currentTheme = localStorage.getItem('eastwest_theme') || 'green';
-        let currentFace = localStorage.getItem('eastwest_face') || 'cream';
+        let currentFace = localStorage.getItem('eastwest_face') || 'neon';
         setTheme(currentTheme, false);
-        setFaceColor(currentFace, false);
 
         function setTheme(theme, save = true) {
             currentTheme = theme;
@@ -178,7 +219,7 @@
             const sendBtn = document.getElementById('sendBtn');
             const themeColorMeta = document.getElementById('themeColorMeta');
 
-            headerBg.className = "text-white px-4 py-3 flex justify-between items-center shadow-xl rounded-2xl transition-colors duration-350 " + 
+            headerBg.className = "text-white px-4 py-3 flex justify-between items-center shadow-2xl rounded-2xl transition-colors duration-350 " + 
                 (theme === 'spider' ? 'theme-spider' : theme === 'starwars' ? 'theme-starwars' : theme === 'barbie' ? 'theme-barbie' : 'theme-green');
 
             if(sendBtn) {
@@ -191,13 +232,18 @@
         }
 
         function setFaceColor(face, save = true) {
-            currentFace = face;
-            if(save) localStorage.setItem('eastwest_face', face);
-
             const body = document.getElementById('appBody');
-            body.className = "min-h-screen flex flex-col font-sans transition-colors duration-300 " + 
-                (face === 'dark' ? 'face-dark' : face === 'grey' ? 'face-grey' : face === 'white' ? 'face-white' : 'face-cream');
-
+            if(face === 'dark') {
+                body.className = "face-dark min-h-screen flex flex-col font-sans transition-colors duration-300";
+            } else if(face === 'grey') {
+                body.className = "face-grey min-h-screen flex flex-col font-sans transition-colors duration-300";
+            } else if(face === 'white') {
+                body.className = "face-white min-h-screen flex flex-col font-sans transition-colors duration-300";
+            } else if(face === 'cream') {
+                body.className = "face-cream min-h-screen flex flex-col font-sans transition-colors duration-300";
+            } else {
+                body.className = "neon-glow-bg min-h-screen flex flex-col font-sans transition-colors duration-300";
+            }
             toggleSettings(false);
         }
 
@@ -250,8 +296,8 @@
         function renderMessages() {
             chatContainer.innerHTML = `
                 <div class="flex justify-start">
-                    <div class="bg-white p-3 max-w-[80%] rounded-2xl shadow-sm text-sm border border-slate-100 text-slate-800">
-                        <p class="font-bold text-xs text-emerald-700 mb-0.5">East West System</p>
+                    <div class="bg-slate-800 text-slate-100 p-3 max-w-[80%] rounded-2xl shadow-sm text-sm border border-slate-700">
+                        <p class="font-bold text-xs text-emerald-400 mb-0.5">East West System</p>
                         <p>Welcome! Offline messages queue locally and auto-sync when online.</p>
                         <span class="text-[9px] text-slate-400 block text-right mt-1">Just now</span>
                     </div>
@@ -260,11 +306,11 @@
             messages.forEach(msg => {
                 chatContainer.innerHTML += `
                     <div class="flex justify-end">
-                        <div class="bg-[#d9fdd3] text-slate-900 p-3 max-w-[80%] rounded-2xl shadow-sm text-sm">
+                        <div class="bg-emerald-600 text-white p-3 max-w-[80%] rounded-2xl shadow-sm text-sm">
                             <p>${msg.text}</p>
                             <div class="flex justify-end items-center gap-1 mt-1">
-                                <span class="text-[9px] text-slate-500">${msg.time}</span>
-                                <span class="text-[10px] font-bold ${msg.synced ? 'text-blue-500' : 'text-amber-600'}">
+                                <span class="text-[9px] text-slate-200">${msg.time}</span>
+                                <span class="text-[10px] font-bold ${msg.synced ? 'text-cyan-200' : 'text-amber-300'}">
                                     ${msg.synced ? '✓✓' : '⏱ Queued'}
                                 </span>
                             </div>
