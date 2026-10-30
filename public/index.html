@@ -138,29 +138,46 @@
         <button id="sendBtn" onclick="sendMessage()" class="theme-green text-white w-9 h-9 rounded-full flex items-center justify-center shadow hover:opacity-90 transition font-bold text-base">➤</button>
     </div>
 
-    <!-- BOTTOM MARK-BOOKS NAVIGATION DOCK -->
-    <nav class="shrink-0 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 py-2 px-3 max-w-md mx-auto w-full flex justify-around items-center z-50 shadow-2xl">
-        <button onclick="showScreen('menu')" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition">
-            <span class="text-lg">🏠</span>
-            <span class="text-[9px] font-bold mt-0.5">Home</span>
-        </button>
-        <button onclick="showScreen('dating')" class="flex flex-col items-center text-slate-400 hover:text-pink-500 transition">
-            <span class="text-lg">💖</span>
-            <span class="text-[9px] font-bold mt-0.5">Find Date</span>
-        </button>
-        <button onclick="showScreen('chat')" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition">
-            <span class="text-lg">💬</span>
-            <span class="text-[9px] font-bold mt-0.5">Chats</span>
-        </button>
-        <button onclick="syncContacts()" class="flex flex-col items-center text-slate-400 hover:text-blue-400 transition">
-            <span class="text-lg">📇</span>
-            <span class="text-[9px] font-bold mt-0.5">Contacts</span>
-        </button>
-        <button onclick="inviteFriends()" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition">
-            <span class="text-lg">🔗</span>
-            <span class="text-[9px] font-bold mt-0.5">Invite</span>
-        </button>
-    </nav>
+    <!-- FLOATING ROUNDED BOTTOM DASHBOARD DOCK -->
+    <div class="p-3 fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
+        <nav class="bg-slate-900/95 backdrop-blur-xl border border-slate-800 py-2.5 px-4 max-w-md mx-auto w-full flex justify-around items-center rounded-3xl shadow-2xl pointer-events-auto">
+            
+            <!-- Magic Home Logo Icon -->
+            <button onclick="showScreen('menu')" class="flex flex-col items-center text-cyan-400 hover:scale-110 transition group">
+                <div class="w-8 h-8 rounded-xl bg-cyan-500/20 flex items-center justify-center border border-cyan-500/40 shadow-inner">
+                    <svg class="w-5 h-5 fill-cyan-400" viewBox="0 0 24 24"><path d="M12 3l9 8h-3v9h-5v-6h-2v6H5v-9H2l10-8z"/></svg>
+                </div>
+                <span class="text-[9px] font-bold mt-1 text-slate-300">Home</span>
+            </button>
+
+            <!-- Find Date -->
+            <button onclick="showScreen('dating')" class="flex flex-col items-center text-pink-400 hover:scale-110 transition group">
+                <div class="w-8 h-8 rounded-xl bg-pink-500/20 flex items-center justify-center border border-pink-500/40 shadow-inner text-sm">💖</div>
+                <span class="text-[9px] font-bold mt-1 text-slate-300">Find Date</span>
+            </button>
+
+            <!-- Michat Logo Icon -->
+            <button onclick="showScreen('chat')" class="flex flex-col items-center text-emerald-400 hover:scale-110 transition group">
+                <div class="w-8 h-8 rounded-xl bg-emerald-500/20 flex items-center justify-center border border-emerald-500/40 shadow-inner">
+                    <svg class="w-5 h-5 fill-emerald-400" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+                </div>
+                <span class="text-[9px] font-bold mt-1 text-slate-300">Chats</span>
+            </button>
+
+            <!-- Contacts -->
+            <button onclick="syncContacts()" class="flex flex-col items-center text-blue-400 hover:scale-110 transition group">
+                <div class="w-8 h-8 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/40 shadow-inner text-sm">📇</div>
+                <span class="text-[9px] font-bold mt-1 text-slate-300">Contacts</span>
+            </button>
+
+            <!-- Invite -->
+            <button onclick="inviteFriends()" class="flex flex-col items-center text-amber-400 hover:scale-110 transition group">
+                <div class="w-8 h-8 rounded-xl bg-amber-500/20 flex items-center justify-center border border-amber-500/40 shadow-inner text-sm">🔗</div>
+                <span class="text-[9px] font-bold mt-1 text-slate-300">Invite</span>
+            </button>
+
+        </nav>
+    </div>
 
     <!-- SETTINGS MODAL -->
     <div id="settingsModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
