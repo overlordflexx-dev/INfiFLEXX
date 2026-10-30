@@ -29,48 +29,48 @@
             background-color: #000000;
             color: #f3f4f6;
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         body.neon-glow-bg::before,
         body.neon-glow-bg::after {
             content: '';
             position: absolute;
-            width: 300px;
-            height: 300px;
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
+            filter: blur(70px);
+            z-index: 0;
             opacity: 0.45;
             animation: pulseGlow 8s ease-in-out infinite alternate;
         }
 
         /* Top-Left / Right Red-Pink Glow */
         body.neon-glow-bg::before {
-            top: -50px;
-            left: -50px;
+            top: -40px;
+            left: -40px;
             background: linear-gradient(135deg, #dc2626, #db2777);
         }
 
         /* Bottom-Right Opposite Glow */
         body.neon-glow-bg::after {
-            bottom: 0px;
-            right: -50px;
+            bottom: 20px;
+            right: -40px;
             background: linear-gradient(135deg, #db2777, #dc2626);
             animation-delay: 4s;
         }
 
         @keyframes pulseGlow {
             0% { transform: scale(1); opacity: 0.35; }
-            50% { transform: scale(1.2); opacity: 0.55; }
+            50% { transform: scale(1.15); opacity: 0.55; }
             100% { transform: scale(1); opacity: 0.35; }
         }
     </style>
 </head>
-<body id="appBody" class="neon-glow-bg min-h-screen flex flex-col font-sans transition-colors duration-300">
+<body id="appBody" class="neon-glow-bg h-screen w-screen flex flex-col font-sans overflow-hidden select-none">
 
     <!-- Floating Rounded Top Header -->
-    <header class="p-3 sticky top-0 z-50">
+    <header class="p-3 z-50 shrink-0">
         <div id="headerBg" class="theme-green text-white px-4 py-3 flex justify-between items-center shadow-2xl rounded-2xl transition-colors duration-300">
             <div class="flex items-center space-x-3">
                 <!-- Back Button -->
@@ -82,7 +82,7 @@
                         ✌🏽
                     </div>
                     <div>
-                        <h1 id="headerTitle" class="font-black text-lg tracking-wider text-3d uppercase">East West</h1>
+                        <h1 id="headerTitle" class="font-black text-lg tracking-wider text-3d uppercase leading-tight">East West</h1>
                         <p class="text-[9px] text-emerald-100 font-medium tracking-wide">Vibes & Connections</p>
                     </div>
                 </div>
@@ -95,36 +95,36 @@
         </div>
     </header>
 
-    <!-- MAIN CONTAINER VIEWS -->
-    <main class="flex-1 max-w-md w-full mx-auto p-4 pb-28 overflow-y-auto flex flex-col justify-center">
+    <!-- MAIN CONTAINER VIEWS (Constant & Fitted) -->
+    <main class="flex-1 max-w-md w-full mx-auto p-4 relative z-10 overflow-hidden flex flex-col justify-center">
 
         <!-- VIEW 1: DASHBOARD / HOME (Plain & Empty Middle Screen) -->
-        <div id="screen-menu" class="space-y-4 text-center">
-            <!-- Middle screen kept plain and empty as requested -->
+        <div id="screen-menu" class="space-y-4 text-center h-full flex items-center justify-center">
+            <!-- Middle screen kept plain, empty, and perfectly centered -->
         </div>
 
         <!-- VIEW 2: FIND A DATE -->
-        <div id="screen-dating" class="hidden space-y-4">
+        <div id="screen-dating" class="hidden space-y-4 h-full flex flex-col justify-center">
             <div class="flex justify-between items-center px-1">
                 <h3 class="text-xs uppercase tracking-wider font-bold text-pink-400">Local Matches Nearby</h3>
                 <span class="text-xs text-pink-500 font-medium">Active now</span>
             </div>
-            <div class="bg-slate-900/80 backdrop-blur-md rounded-3xl shadow-lg border border-slate-800 overflow-hidden">
-                <div class="h-56 bg-gradient-to-tr from-pink-600 to-rose-600 flex items-end p-4 text-white">
+            <div class="bg-slate-900/90 backdrop-blur-md rounded-3xl shadow-lg border border-slate-800 overflow-hidden">
+                <div class="h-48 bg-gradient-to-tr from-pink-600 to-rose-600 flex items-end p-4 text-white">
                     <div>
                         <h4 class="text-lg font-bold">Brenda, 22</h4>
                         <p class="text-xs text-pink-100">2 km away • Coffee & Tech lover</p>
                     </div>
                 </div>
-                <div class="p-4 flex gap-2">
-                    <button onclick="alert('Passed!')" class="w-1/2 border border-slate-700 text-slate-300 py-3 rounded-2xl text-xs font-bold hover:bg-slate-800">✕ Pass</button>
-                    <button onclick="alert('Matched! Opening secure chat room.')" class="w-1/2 bg-pink-600 text-white py-3 rounded-2xl text-xs font-bold hover:bg-pink-700 shadow">💖 Like & Chat</button>
+                <div class="p-3.5 flex gap-2">
+                    <button onclick="alert('Passed!')" class="w-1/2 border border-slate-700 text-slate-300 py-2.5 rounded-2xl text-xs font-bold hover:bg-slate-800">✕ Pass</button>
+                    <button onclick="alert('Matched! Opening secure chat room.')" class="w-1/2 bg-pink-600 text-white py-2.5 rounded-2xl text-xs font-bold hover:bg-pink-700 shadow">💖 Like & Chat</button>
                 </div>
             </div>
         </div>
 
         <!-- VIEW 3: CHAT ROOM -->
-        <div id="screen-chat" class="hidden space-y-3">
+        <div id="screen-chat" class="hidden flex-1 overflow-y-auto space-y-3 py-2">
             <div id="chatContainer" class="space-y-3">
                 <!-- Messages injected here -->
             </div>
@@ -133,75 +133,75 @@
     </main>
 
     <!-- Message Input Bar (Only visible in Chat View) -->
-    <div id="chatInputBar" class="hidden fixed bottom-16 left-0 right-0 bg-slate-900/90 backdrop-blur-md p-3 border-t border-slate-800 max-w-md mx-auto flex items-center gap-2 z-40">
-        <input type="text" id="messageInput" placeholder="Type a message (works offline)..." class="flex-1 bg-slate-800 text-white placeholder-slate-400 border border-slate-700 rounded-full py-2.5 px-4 text-sm focus:outline-none focus:border-emerald-500">
-        <button id="sendBtn" onclick="sendMessage()" class="theme-green text-white w-10 h-10 rounded-full flex items-center justify-center shadow hover:opacity-90 transition font-bold text-lg">➤</button>
+    <div id="chatInputBar" class="hidden shrink-0 bg-slate-900/95 backdrop-blur-md p-3 border-t border-slate-800 max-w-md mx-auto w-full flex items-center gap-2 z-40">
+        <input type="text" id="messageInput" placeholder="Type a message (works offline)..." class="flex-1 bg-slate-800 text-white placeholder-slate-400 border border-slate-700 rounded-full py-2 px-4 text-sm focus:outline-none focus:border-emerald-500">
+        <button id="sendBtn" onclick="sendMessage()" class="theme-green text-white w-9 h-9 rounded-full flex items-center justify-center shadow hover:opacity-90 transition font-bold text-base">➤</button>
     </div>
 
     <!-- BOTTOM MARK-BOOKS NAVIGATION DOCK -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-md border-t border-slate-800 py-2 px-3 max-w-md mx-auto flex justify-around items-center z-50 shadow-2xl">
+    <nav class="shrink-0 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 py-2 px-3 max-w-md mx-auto w-full flex justify-around items-center z-50 shadow-2xl">
         <button onclick="showScreen('menu')" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition">
-            <span class="text-xl">🏠</span>
-            <span class="text-[10px] font-bold mt-0.5">Home</span>
+            <span class="text-lg">🏠</span>
+            <span class="text-[9px] font-bold mt-0.5">Home</span>
         </button>
         <button onclick="showScreen('dating')" class="flex flex-col items-center text-slate-400 hover:text-pink-500 transition">
-            <span class="text-xl">💖</span>
-            <span class="text-[10px] font-bold mt-0.5">Find Date</span>
+            <span class="text-lg">💖</span>
+            <span class="text-[9px] font-bold mt-0.5">Find Date</span>
         </button>
         <button onclick="showScreen('chat')" class="flex flex-col items-center text-slate-400 hover:text-emerald-400 transition">
-            <span class="text-xl">💬</span>
-            <span class="text-[10px] font-bold mt-0.5">Chats</span>
+            <span class="text-lg">💬</span>
+            <span class="text-[9px] font-bold mt-0.5">Chats</span>
         </button>
         <button onclick="syncContacts()" class="flex flex-col items-center text-slate-400 hover:text-blue-400 transition">
-            <span class="text-xl">📇</span>
-            <span class="text-[10px] font-bold mt-0.5">Contacts</span>
+            <span class="text-lg">📇</span>
+            <span class="text-[9px] font-bold mt-0.5">Contacts</span>
         </button>
         <button onclick="inviteFriends()" class="flex flex-col items-center text-slate-400 hover:text-amber-400 transition">
-            <span class="text-xl">🔗</span>
-            <span class="text-[10px] font-bold mt-0.5">Invite</span>
+            <span class="text-lg">🔗</span>
+            <span class="text-[9px] font-bold mt-0.5">Invite</span>
         </button>
     </nav>
 
     <!-- SETTINGS MODAL -->
     <div id="settingsModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 text-slate-100 border border-slate-800 w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 animate-in fade-in duration-200 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="font-black text-base text-slate-100">⚙️ Settings & Support</h3>
-                <button onclick="toggleSettings(false)" class="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center font-bold text-slate-300 hover:bg-slate-700">✕</button>
+        <div class="bg-slate-900 text-slate-100 border border-slate-800 w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-3.5 animate-in fade-in duration-200 max-h-[85vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2.5">
+                <h3 class="font-black text-sm text-slate-100">⚙️ Settings & Support</h3>
+                <button onclick="toggleSettings(false)" class="w-7 h-7 bg-slate-800 rounded-full flex items-center justify-center font-bold text-slate-300 hover:bg-slate-700">✕</button>
             </div>
 
             <!-- Support Details -->
-            <div class="space-y-1 bg-slate-800/60 p-3 rounded-2xl border border-slate-700/50 text-xs text-slate-300">
-                <p class="font-bold text-slate-200 mb-1">📞 Support & Contact</p>
+            <div class="space-y-1 bg-slate-800/60 p-2.5 rounded-2xl border border-slate-700/50 text-xs text-slate-300">
+                <p class="font-bold text-slate-200 mb-0.5">📞 Support & Contact</p>
                 <p><b>Phone:</b> +254 700 000 000</p>
                 <p><b>Email:</b> support@eastwest.live</p>
             </div>
 
             <!-- Face Color Picker -->
-            <div class="space-y-1.5">
-                <label class="font-bold text-xs text-slate-300 block">🎨 App Face Color</label>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="setFaceColor('cream')" class="p-2 rounded-xl bg-[#efeae2] text-slate-800 text-xs font-bold border border-slate-300 shadow-sm">Warm Cream</button>
-                    <button onclick="setFaceColor('dark')" class="p-2 rounded-xl bg-[#111827] text-white text-xs font-bold shadow-sm">Dark AMOLED</button>
-                    <button onclick="setFaceColor('grey')" class="p-2 rounded-xl bg-[#f1f5f9] text-slate-800 text-xs font-bold border border-slate-200 shadow-sm">Cool Grey</button>
-                    <button onclick="setFaceColor('white')" class="p-2 rounded-xl bg-white text-slate-800 text-xs font-bold border border-slate-200 shadow-sm">Clean White</button>
+            <div class="space-y-1">
+                <label class="font-bold text-[11px] text-slate-300 block">🎨 App Face Color</label>
+                <div class="grid grid-cols-2 gap-1.5">
+                    <button onclick="setFaceColor('cream')" class="p-2 rounded-xl bg-[#efeae2] text-slate-800 text-[11px] font-bold border border-slate-300 shadow-sm">Warm Cream</button>
+                    <button onclick="setFaceColor('dark')" class="p-2 rounded-xl bg-[#111827] text-white text-[11px] font-bold shadow-sm">Dark AMOLED</button>
+                    <button onclick="setFaceColor('grey')" class="p-2 rounded-xl bg-[#f1f5f9] text-slate-800 text-[11px] font-bold border border-slate-200 shadow-sm">Cool Grey</button>
+                    <button onclick="setFaceColor('neon')" class="p-2 rounded-xl bg-black text-pink-400 text-[11px] font-bold border border-slate-800 shadow-sm">Neon Glow</button>
                 </div>
             </div>
 
             <!-- Theme Picker (Separate) -->
-            <div class="space-y-1.5">
-                <label class="font-bold text-xs text-slate-300 block">✨ Header & Accent Themes</label>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="setTheme('green')" class="p-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold shadow-sm">Classic Green</button>
-                    <button onclick="setTheme('spider')" class="p-2.5 rounded-xl bg-red-600 text-white text-xs font-bold shadow-sm">Spider-Man</button>
-                    <button onclick="setTheme('starwars')" class="p-2.5 rounded-xl bg-slate-800 text-white text-xs font-bold shadow-sm">Star Wars</button>
-                    <button onclick="setTheme('barbie')" class="p-2.5 rounded-xl bg-pink-600 text-white text-xs font-bold shadow-sm">Barbie</button>
+            <div class="space-y-1">
+                <label class="font-bold text-[11px] text-slate-300 block">✨ Header & Accent Themes</label>
+                <div class="grid grid-cols-2 gap-1.5">
+                    <button onclick="setTheme('green')" class="p-2 rounded-xl bg-emerald-600 text-white text-[11px] font-bold shadow-sm">Classic Green</button>
+                    <button onclick="setTheme('spider')" class="p-2 rounded-xl bg-red-600 text-white text-[11px] font-bold shadow-sm">Spider-Man</button>
+                    <button onclick="setTheme('starwars')" class="p-2 rounded-xl bg-slate-800 text-white text-[11px] font-bold shadow-sm">Star Wars</button>
+                    <button onclick="setTheme('barbie')" class="p-2 rounded-xl bg-pink-600 text-white text-[11px] font-bold shadow-sm">Barbie</button>
                 </div>
             </div>
 
             <!-- Project Tag -->
-            <div class="pt-2 border-t border-slate-800 text-center">
-                <span class="text-[10px] bg-slate-800 text-slate-400 font-bold px-3 py-1 rounded-full">🚀 Ongoing Project: East West v2.0</span>
+            <div class="pt-1.5 border-t border-slate-800 text-center">
+                <span class="text-[9px] bg-slate-800 text-slate-400 font-bold px-3 py-1 rounded-full">🚀 Ongoing Project: East West v2.0</span>
             </div>
         </div>
     </div>
@@ -210,6 +210,7 @@
         let currentTheme = localStorage.getItem('eastwest_theme') || 'green';
         let currentFace = localStorage.getItem('eastwest_face') || 'neon';
         setTheme(currentTheme, false);
+        setFaceColor(currentFace, false);
 
         function setTheme(theme, save = true) {
             currentTheme = theme;
@@ -223,7 +224,7 @@
                 (theme === 'spider' ? 'theme-spider' : theme === 'starwars' ? 'theme-starwars' : theme === 'barbie' ? 'theme-barbie' : 'theme-green');
 
             if(sendBtn) {
-                sendBtn.className = "text-white w-10 h-10 rounded-full flex items-center justify-center shadow hover:opacity-90 transition font-bold text-lg " + 
+                sendBtn.className = "text-white w-9 h-9 rounded-full flex items-center justify-center shadow hover:opacity-90 transition font-bold text-base " + 
                     (theme === 'spider' ? 'theme-spider' : theme === 'starwars' ? 'theme-starwars' : theme === 'barbie' ? 'theme-barbie' : 'theme-green');
             }
 
@@ -232,17 +233,20 @@
         }
 
         function setFaceColor(face, save = true) {
+            currentFace = face;
+            if(save) localStorage.setItem('eastwest_face', face);
+
             const body = document.getElementById('appBody');
             if(face === 'dark') {
-                body.className = "face-dark min-h-screen flex flex-col font-sans transition-colors duration-300";
+                body.className = "face-dark h-screen w-screen flex flex-col font-sans overflow-hidden select-none";
             } else if(face === 'grey') {
-                body.className = "face-grey min-h-screen flex flex-col font-sans transition-colors duration-300";
+                body.className = "face-grey h-screen w-screen flex flex-col font-sans overflow-hidden select-none";
             } else if(face === 'white') {
-                body.className = "face-white min-h-screen flex flex-col font-sans transition-colors duration-300";
+                body.className = "face-white h-screen w-screen flex flex-col font-sans overflow-hidden select-none";
             } else if(face === 'cream') {
-                body.className = "face-cream min-h-screen flex flex-col font-sans transition-colors duration-300";
+                body.className = "face-cream h-screen w-screen flex flex-col font-sans overflow-hidden select-none";
             } else {
-                body.className = "neon-glow-bg min-h-screen flex flex-col font-sans transition-colors duration-300";
+                body.className = "neon-glow-bg h-screen w-screen flex flex-col font-sans overflow-hidden select-none";
             }
             toggleSettings(false);
         }
