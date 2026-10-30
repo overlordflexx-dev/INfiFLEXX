@@ -67,11 +67,11 @@
         }
     </style>
 </head>
-<body id="appBody" class="neon-glow-bg h-screen w-screen flex flex-col font-sans overflow-hidden select-none">
+<body id="appBody" class="neon-glow-bg h-screen w-screen flex flex-col justify-between font-sans overflow-hidden select-none m-0 p-0">
 
     <!-- Floating Rounded Top Header -->
-    <header class="p-3 z-50 shrink-0">
-        <div id="headerBg" class="theme-green text-white px-4 py-3 flex justify-between items-center shadow-2xl rounded-2xl transition-colors duration-300">
+    <header class="w-full p-3 z-50 shrink-0">
+        <div id="headerBg" class="theme-green text-white px-4 py-3 flex justify-between items-center shadow-2xl rounded-2xl transition-colors duration-300 max-w-md mx-auto w-full">
             <div class="flex items-center space-x-3">
                 <!-- Back Button -->
                 <button onclick="goBack()" class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm hover:bg-white/30 transition">←</button>
@@ -95,36 +95,36 @@
         </div>
     </header>
 
-    <!-- MAIN CONTAINER VIEWS (Constant & Fitted) -->
-    <main class="flex-1 max-w-md w-full mx-auto p-4 relative z-10 overflow-hidden flex flex-col justify-center">
+    <!-- MAIN CONTAINER VIEWS (Constant, Fitted & Unscrollable) -->
+    <main class="flex-1 max-w-md w-full mx-auto p-4 relative z-10 overflow-hidden flex flex-col justify-center items-center">
 
         <!-- VIEW 1: DASHBOARD / HOME (Plain & Empty Middle Screen) -->
-        <div id="screen-menu" class="space-y-4 text-center h-full flex items-center justify-center">
+        <div id="screen-menu" class="space-y-4 text-center h-full w-full flex items-center justify-center">
             <!-- Middle screen kept plain, empty, and perfectly centered -->
         </div>
 
         <!-- VIEW 2: FIND A DATE -->
-        <div id="screen-dating" class="hidden space-y-4 h-full flex flex-col justify-center">
+        <div id="screen-dating" class="hidden space-y-4 h-full w-full flex flex-col justify-center">
             <div class="flex justify-between items-center px-1">
                 <h3 class="text-xs uppercase tracking-wider font-bold text-pink-400">Local Matches Nearby</h3>
                 <span class="text-xs text-pink-500 font-medium">Active now</span>
             </div>
-            <div class="bg-slate-900/90 backdrop-blur-md rounded-3xl shadow-lg border border-slate-800 overflow-hidden">
-                <div class="h-48 bg-gradient-to-tr from-pink-600 to-rose-600 flex items-end p-4 text-white">
+            <div class="bg-slate-900/90 backdrop-blur-md rounded-3xl shadow-lg border border-slate-800 overflow-hidden w-full">
+                <div class="h-44 bg-gradient-to-tr from-pink-600 to-rose-600 flex items-end p-4 text-white">
                     <div>
                         <h4 class="text-lg font-bold">Brenda, 22</h4>
                         <p class="text-xs text-pink-100">2 km away • Coffee & Tech lover</p>
                     </div>
                 </div>
                 <div class="p-3.5 flex gap-2">
-                    <button onclick="alert('Passed!')" class="w-1/2 border border-slate-700 text-slate-300 py-2.5 rounded-2xl text-xs font-bold hover:bg-slate-800">✕ Pass</button>
-                    <button onclick="alert('Matched! Opening secure chat room.')" class="w-1/2 bg-pink-600 text-white py-2.5 rounded-2xl text-xs font-bold hover:bg-pink-700 shadow">💖 Like & Chat</button>
+                    <button onclick="alert('Passed!')" class="w-1/2 border border-slate-700 text-slate-300 py-2 rounded-2xl text-xs font-bold hover:bg-slate-800">✕ Pass</button>
+                    <button onclick="alert('Matched! Opening secure chat room.')" class="w-1/2 bg-pink-600 text-white py-2 rounded-2xl text-xs font-bold hover:bg-pink-700 shadow">💖 Like & Chat</button>
                 </div>
             </div>
         </div>
 
         <!-- VIEW 3: CHAT ROOM -->
-        <div id="screen-chat" class="hidden flex-1 overflow-y-auto space-y-3 py-2">
+        <div id="screen-chat" class="hidden flex-1 w-full overflow-y-auto space-y-3 py-2">
             <div id="chatContainer" class="space-y-3">
                 <!-- Messages injected here -->
             </div>
@@ -139,8 +139,8 @@
     </div>
 
     <!-- FLOATING ROUNDED BOTTOM DASHBOARD DOCK -->
-    <div class="p-3 fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
-        <nav class="bg-slate-900/95 backdrop-blur-xl border border-slate-800 py-2.5 px-4 max-w-md mx-auto w-full flex justify-around items-center rounded-3xl shadow-2xl pointer-events-auto">
+    <div class="w-full p-3 shrink-0 z-50">
+        <nav class="bg-slate-900/95 backdrop-blur-xl border border-slate-800 py-2.5 px-4 max-w-md mx-auto w-full flex justify-around items-center rounded-3xl shadow-2xl">
             
             <!-- Magic Home Logo Icon -->
             <button onclick="showScreen('menu')" class="flex flex-col items-center text-cyan-400 hover:scale-110 transition group">
@@ -237,7 +237,7 @@
             const sendBtn = document.getElementById('sendBtn');
             const themeColorMeta = document.getElementById('themeColorMeta');
 
-            headerBg.className = "text-white px-4 py-3 flex justify-between items-center shadow-2xl rounded-2xl transition-colors duration-350 " + 
+            headerBg.className = "text-white px-4 py-3 flex justify-between items-center shadow-2xl rounded-2xl transition-colors duration-350 max-w-md mx-auto w-full " + 
                 (theme === 'spider' ? 'theme-spider' : theme === 'starwars' ? 'theme-starwars' : theme === 'barbie' ? 'theme-barbie' : 'theme-green');
 
             if(sendBtn) {
@@ -255,15 +255,15 @@
 
             const body = document.getElementById('appBody');
             if(face === 'dark') {
-                body.className = "face-dark h-screen w-screen flex flex-col font-sans overflow-hidden select-none";
+                body.className = "face-dark h-screen w-screen flex flex-col justify-between font-sans overflow-hidden select-none m-0 p-0";
             } else if(face === 'grey') {
-                body.className = "face-grey h-screen w-screen flex flex-col font-sans overflow-hidden select-none";
+                body.className = "face-grey h-screen w-screen flex flex-col justify-between font-sans overflow-hidden select-none m-0 p-0";
             } else if(face === 'white') {
-                body.className = "face-white h-screen w-screen flex flex-col font-sans overflow-hidden select-none";
+                body.className = "face-white h-screen w-screen flex flex-col justify-between font-sans overflow-hidden select-none m-0 p-0";
             } else if(face === 'cream') {
-                body.className = "face-cream h-screen w-screen flex flex-col font-sans overflow-hidden select-none";
+                body.className = "face-cream h-screen w-screen flex flex-col justify-between font-sans overflow-hidden select-none m-0 p-0";
             } else {
-                body.className = "neon-glow-bg h-screen w-screen flex flex-col font-sans overflow-hidden select-none";
+                body.className = "neon-glow-bg h-screen w-screen flex flex-col justify-between font-sans overflow-hidden select-none m-0 p-0";
             }
             toggleSettings(false);
         }
